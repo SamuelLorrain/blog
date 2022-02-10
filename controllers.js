@@ -1,83 +1,76 @@
 const fs = require("fs").promises;
 const md = require('./markdown');
-const dot = require('dot');
+const nunjucks = require('nunjucks');
 const {sendNotFound, blogTemplate, htmlResponse} = require('./helpers/responses');
 const {contentType} = require('./helpers/contentType');
+const {blogPosts} = require('./init');
+
+module.exports.notFoundController = async () => {
+    return new Promise((accept) => {
+        accept(sendNotFound);
+    });
+}
 
 module.exports.index = async () => {
-    const f = await fs.open(__dirname + "/views/index.html");
-    const content = await f.readFile();
-    const template = dot.compile(await blogTemplate);
-    f.close();
-    return new Promise((accept) => {
-        accept(() => {
-            return template({html: content.toString()})
-        })
-    })
+    let posts = await blogPosts;
+    const content = nunjucks.render(
+        "index.html",
+        {
+            blogposts: posts.getLatestBlogPosts()
+        }
+    );
+    return htmlResponse(content);
 }
 
-module.exports.staticPage = async (pageName) => {
-    const f = await fs.open(__dirname + "/views/" + pageName + ".html");
-    const content = await f.readFile();
-    const t = await blogTemplate;
-    f.close();
-    return new Promise((accept) => {
-        accept((req,res,match) => {
-            htmlResponse(res);
-            let template = dot.compile(t);
-            res.end(template({html: content.toString()}));
-        });
-    });
+module.exports.blogIndex = async () => {
+    let posts = await blogPosts;
+    const content = nunjucks.render(
+        "blogindex.html",
+        {
+            blogposts: posts.orderedBlogPosts()
+        }
+    );
+    return htmlResponse(content);
 }
 
-module.exports.blog = (req,res,match) => {
-    if (match[1] == '') {
-        res.writeHead(200);
-        let content = "<h1>blog index</h1>";
-        blogTemplate
-        .then(async (t) => {
-            let template = dot.compile(t);
-            res.end(template(md(content.toString())));
-        });
-        return;
-    } else if (match[1].includes("/") || match[1].includes("..")) {
-        sendNotFound(res);
-        return;
-    }
-    const postName = match[1];
-    fs.open(__dirname + '/blogposts/' + postName + '.md')
-    .then((f) => {
-        let content = f.readFile();
-        f.close();
-        return content;
-    })
-    .then(async (content) => {
-        htmlResponse(res);
-        let t = await blogTemplate;
-        let template = dot.compile(t);
-        res.end(template(md(content.toString())));
-    })
-    .catch((e) => {
-        console.log(e);
-        sendNotFound(res);
-    });
-}
-
-
-module.exports.static = async (req,res,match) => {
+// TODO use preloaded blog posts
+module.exports.blog = async (req, match) => {
+    // TODO change route, possibility to add date in the title
     if (match[1].includes("/") || match[1].includes("..")) {
         sendNotFound(res);
         return;
     }
-    res.setHeader('Content-Type', contentType(match[1].split('.').pop()))
-    try {
-        const f = await fs.open(__dirname + "/static/" + match[1]);
-        const content = await f.readFile();
-        res.writeHead(200)
-        res.end(content);
-        f.close();
-    } catch(e) {
-        console.log(e);
-        sendNotFound(res);
+    const postName = match[1];
+    const posts = await blogPosts;
+    const article = posts.getBlogPosts()[postName]
+    const previous = posts.getPreviousBlogPost(postName);
+    const next = posts.getNextBlogPost(postName);
+    const content = nunjucks.render(
+        "blogpost.html",
+        {
+            article,
+            previous,
+            next,
+        }
+    );
+    return htmlResponse(content);
+}
+
+module.exports.static = async (req, match) => {
+    if (match[1].includes("/") || match[1].includes("..")) {
+        throw new Error("not found");
     }
+    const f = await fs.open(__dirname + "/static/" + match[1]);
+    const content = await f.readFile();
+    f.close();
+    const format = contentType(match[1].split('.').pop());
+    return new Promise((accept) => {
+        accept({
+            statusCode:200,
+            headers: {
+                "Content-Type": format
+            },
+            content
+        })
+    })
 }

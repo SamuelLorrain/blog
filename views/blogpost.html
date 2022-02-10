@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block article %}
+
+{{article.html}}
+{% endblock %}
+
+{% block meta %}
+<hr/>
+<section id="previousnext">
+    {% if previous %}
+        <a href="/blog/{{previous.slug}}">
+            &larr;
+            {{previous.title}} - {{previous.date}}
+        </a>
+    {% endif %}
+    {% if next %}
+        <a href="/blog/{{next.slug}}">
+            {{next.title}} - {{next.date}}
+            &rarr;
+        </a>
+    {% endif %}
+</section>
+{% endblock %}

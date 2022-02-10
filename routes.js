@@ -1,22 +1,24 @@
-const {staticPage,
+const {index,
        blog,
        static,
+       notFoundController,
+       blogIndex,
 } = require('./controllers');
-const { sendNotFound } = require('./helpers/responses');
 
-Map.prototype.getRoute = async function(req,res) {
+Map.prototype.getRoute = async function(req) {
     for (const [k,v] of this.entries()) {
         const m = req.url.match(k)
         if (m) {
-            let x = await v;
-            return x(req,res,m)
+            let controllerFunction = await v;
+            return controllerFunction(req,m)
         }
     }
-    sendNotFound(res);
-}
+    return notFoundController(req);
+};
 
 module.exports.routes = new Map([
-    [/^\/static\/(..*)$/, static],
-    [/^\/$|^\/index\/?$|^\/home\/?$/, staticPage("index")],
-    [/^\/blog\/?(.*)$/, blog],
-])
+    [/^\/static\/(.+)$/, static],
+    [/^\/$|^\/index\/?$|^\/home\/?$/, index],
+    [/^\/blog\/?$/, blogIndex],
+    [/^\/blog\/?(.+)$/, blog],
+]);

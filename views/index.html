@@ -1,4 +1,6 @@
-<section>
+{% extends "base.html" %}
+
+{% block article %}
     <p>
     Hi!<br/>
     I'm Samuel Lorrain. Full stack web developer from Paris.
@@ -10,18 +12,18 @@
     <p>
     Here, you can find articles about my findings, thoughs and experiments. Mostly related to IT but not only.
     </p>
-</section>
 <hr/>
-<section>
     <h2>Blog</h2>
     <ul>
-        {{#def:test}}
-        {{ for(const i of it.blogposts) { }}
+        {% for k,v in blogposts %}
             <li class="blog-li">
-            <a href="blog/{{i['date'].year}}/{{i['date'].month}}/{{i['date'].day}}/{{i['slug']}}">
-            <i>{{=i['date']}}</i> - {{=i['title'] }}
+            <a href="blog/{{k}}"
+               alt="{{v['title']}}">
+            <i>{{v['title']}}</i> - {{v['date'] }}
             </a></li>
-        {{ } }}
-    <li class="all-links"><a class="normal-link" href="/blog">See all blog posts</a></li>
+        {% endfor %}
+        {% if blogposts %}
+            <li><a href="/blog">See all blog posts</a></li>
+        {% endif %}
     </ul>
-</section>
+{% endblock %}

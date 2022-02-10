@@ -1,20 +1,23 @@
 const fs = require('fs').promises;
 
-module.exports.sendNotFound = (res) => {
-    res.writeHead(404)
-    res.end("not found")
-}
+module.exports.notFoundResponse = (() => {
+    return {
+        statusCode: 404,
+        headers: {
+           "Content-Type": "text/html"
+        },
+        content: "Page Not Found" // TODO better not found response
+    }
+})();
 
-module.exports.htmlResponse = (res) => {
-    res.setHeader("Content-Type", "text/html")
-    res.writeHead(200);
-}
-
-module.exports.blogTemplate = (async () => {
-    const head = await fs.open('./views/head.def')
-    const back = await fs.open('./views/back.def');
-    const content = await head.readFile() + " {{=it.html}} " + await back.readFile()
-    head.close();
-    back.close();
-    return new Promise((accept) => accept(content));
-})()
+module.exports.htmlResponse = (content) => {
+    return new Promise((accept) => {
+        accept({
+        statusCode: 200,
+        headers: {
+           "Content-Type": "text/html"
+        },
+        content: content
+        });
+    });
+};
