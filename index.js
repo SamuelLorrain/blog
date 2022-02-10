@@ -13,6 +13,7 @@
 // TODO https/ssl
 // TODO use strings in fs.writeStream & when sending response ?
 // TODO mesure performances
+// TODO minifining
 //
 
 const http = require("http");
