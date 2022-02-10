@@ -108,7 +108,6 @@ p{
 ul{
     margin-left:2rem;
     list-style-type:square;
-    padding-left:2rem;
 }
 
 code {
@@ -134,4 +133,17 @@ pre > code {
     display: flex;
     justify-content: space-around;
     font-size: 1.1rem;
+}
+
+@media(max-width:900px) {
+    body {
+        width: 95%;
+        overflow-x:hidden;
+    }
+    nav {
+        padding-right:1rem;
+    }
+    footer {
+        margin-bottom: 2rem;
+    }
 }
