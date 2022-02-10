@@ -4,16 +4,23 @@
 // TODO syntax highlighting
 // TODO static content & compilation
 //
-// TODO compress files, cache etc.
+// TODO compress files, caching etc.
 // TODO dark/light themes
-// TODO precompile views
+// TODO precompile views  (mostly done)
+// TODO async for showdown and nunjuck
 //
+// TODO responsive
+// TODO https/ssl
+// TODO use strings in fs.writeStream & when sending response ?
+// TODO mesure performances
+//
+
 const http = require("http");
 const host = "localhost";
 const port = 8000;
 const {routes} = require('./routes');
 const {blogPosts} = require('./init');
-const { notFoundResponse } = require("./helpers/responses");
+const {notFoundResponse} = require("./helpers/responses");
 
 const nunjucks = require('nunjucks');
 nunjucks.configure('views', { autoescape: false });

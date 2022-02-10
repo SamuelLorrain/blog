@@ -114,7 +114,7 @@ So there is a chance that some potions will keep their original title, because t
 But it is also possible that the swap is done between the same two elements and therefore have no effect.
 We can then consider that the function is imperfect.
 
-## Get_wand_and_ring_materials()
+## Get\_wand\_and\_ring\_materials()
 
 ```C
 void get_wand_and_ring_materials(void) {
@@ -150,7 +150,7 @@ and all names are assigned randomly.
 But unlike the `mix_color()` function, you have to call `get_rand()` several times to get an empty cell in the `used[]` array.
 The initalization of the rings is done in the same way in the rest of the function.
 
-## Make_scrolls_title()
+## Make\_scrolls\_title()
 
 ```C
 void make_scroll_titles(void) {
