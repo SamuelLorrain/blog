@@ -1,0 +1,27 @@
+<section>
+    <p>
+    Hi!<br/>
+    I'm Samuel Lorrain. Full stack web developer from Paris.
+    </p>
+    <p>
+    I'm working for <a href="https://www.cibiltech.com" target="_blank" rel="noopener noreferrer">Cibiltech</a>
+    and i'm interested by many things. Mostly low levels stuffs, graphic programming and software design.
+    </p>
+    <p>
+    Here, you can find articles about my findings, thoughs and experiments. Mostly related to IT but not only.
+    </p>
+</section>
+<hr/>
+<section>
+    <h2>Blog</h2>
+    <ul>
+        {{#def:test}}
+        {{ for(const i of it.blogposts) { }}
+            <li class="blog-li">
+            <a href="blog/{{i['date'].year}}/{{i['date'].month}}/{{i['date'].day}}/{{i['slug']}}">
+            <i>{{=i['date']}}</i> - {{=i['title'] }}
+            </a></li>
+        {{ } }}
+    <li class="all-links"><a class="normal-link" href="/blog">See all blog posts</a></li>
+    </ul>
+</section>

@@ -1,0 +1,131 @@
+/*reset*/
+*{
+    margin:0;
+    padding:0;
+}
+
+/*main*/
+body{
+  font-size: 1.5em;
+  line-height: 1.35;
+  font-weight: 400;
+  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #383a42;
+  background-color: #fafafa;
+  width:60%;
+  margin:auto;
+  box-sizing:border-box;
+}
+
+a,a:visited{
+    text-decoration:none;
+    color: #3facff;
+    border-bottom:4px solid rgba(0,0,0,0);
+    transition:border 0.25s ease-in;
+}
+
+a:hover{
+    border-bottom:2px solid #3facff;
+}
+
+article{
+    font-size:1.30rem;
+    max-width:50rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+hr{
+  margin-top: 3rem;
+  margin-bottom: 3.5rem;
+  border-width: 0;
+  border-top: 1px solid #E1E1E1;
+}
+
+h1{
+    font-size: 2.5rem;
+    line-height: 1.1;
+    margin: 0 auto 2rem auto;
+    color: #383a42;
+    border:none;
+}
+
+h2{
+    font-size: 2rem;
+    line-height: 1;
+    margin: 2.5rem 0 2.5rem 0;
+}
+
+
+header h1 a, header h1 a:hover{
+    color: #383a42 !important;
+    border:none;
+}
+
+header div {
+    margin:1rem 0;
+    display:flex;
+    flex-wrap:nowrap;
+    justify-content:space-between;
+}
+
+header h1{
+    font-size: 2.0rem;
+    margin:auto;
+}
+
+header nav{
+    text-transform:uppercase;
+    list-style-type:none;
+    font-size:1.1rem;
+}
+
+header nav a{
+    color: #383a42 !important;
+}
+
+header nav a:hover{
+    border-bottom:3px solid #333;
+}
+
+header hr {
+    margin-top: 1rem;
+}
+
+footer{
+    width:80%;
+    margin:auto auto 3.5rem auto;
+    font-size: .8rem;
+    text-align:center;
+}
+
+p{
+    margin:1.75rem 0rem;
+    /* text-indent:2rem; */
+    text-align:justify;
+}
+
+ul{
+    margin-left:2rem;
+    list-style-type:square;
+    padding-left:2rem;
+}
+
+code {
+    padding: 0.1rem 0.4rem;
+    margin: 1rem 0.2rem;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    background: #F0F0F0;
+    border: 1px solid #E2E2E2;
+    border-radius: 10px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+pre > code {
+    display: block;
+    padding: 1rem 2rem 1rem 1.5rem;
+    white-space: pre;
+    width:100%;
+    overflow: auto;
+}

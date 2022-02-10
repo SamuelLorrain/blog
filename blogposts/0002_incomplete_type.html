@@ -1,0 +1,55 @@
+elors que je lisait le code source de *SDL 2*, quelque
+chose à piqué mon attention.
+
+Dans les fichiers que je regardaient, impossible de trouver
+la définition du type `struct SDL_Renderer`. C'est en fait
+pour cela que j'avais décidé de lire le code source. La
+documentation de *SDL 2* est parcellaire, inexistante, et tout
+ce qu'on apprend sur ce type c'est qu'il contient un "rendering state",
+sans d'ailleurs donner de définition à cela.
+
+Malheureusement, avoir une variable *SDL_Renderer* est primordial
+pour faire fonctionner un programme SDL : elle doit contenir toutes les
+informations utiles au rendu graphique quel qu'il soit.
+
+Ne sachant pas où chercher cette définition
+(623 occurences dans le code source),
+j'ai finalement eu l'idée de faire une sorte de rétro-engineering
+du type, pour voir où cela pouvait m'ammener.
+
+Confiant, je lance ce code:
+
+```
+#include <SDL2/SDL.h>
+
+main(){
+    printf("%d\n", sizeof(SDL_Renderer));
+}
+```
+
+et gcc me met ce beau message d'erreur
+```
+main.c:6:27: error: invalid application of ‘sizeof’ to incomplete type ‘SDL_Renderer
+ {aka struct SDL_Renderer}’
+     printf("%d\n", sizeof(SDL_Renderer));
+                           ^~~~~~~~~~~~
+```
+
+*incomplete type*, je n'avais jamais vu ce message.
+Après quelques recherches, il semble que ce soit la façon standard
+de décrire la déclaration suivante:
+
+```
+struct SDL_Renderer;
+```
+
+et on peut conclure qu'on devrait trouver cette ligne
+dans le code source de *SDL*:
+```
+typedef struct SDL_Renderer SDL_Renderer;
+```
+
+Et, effectivement, on trouve cette ligne dans le fichier
+_include/SDL_render.h_, mais cela ne nous apprend pas grand chose.
+
+Normalement, on utilise la fonction `SDL_CreateRenderer()`
