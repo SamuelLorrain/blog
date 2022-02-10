@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 
 {% block article %}
-<h2>Blog index</h2>
+<p>
+You can find all the blog posts here
+</p>
+<ul>
+{% for k,v in blogposts %}
+    <li class="blog-li">
+    <a href="blog/{{k}}"
+       alt="{{v['title']}}">
+    <i>{{v['title']}}</i> - {{v['date'] }}
+    </a></li>
+{% endfor %}
+</ul>
 {% endblock %}

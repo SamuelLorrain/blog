@@ -27,7 +27,7 @@ module.exports.blogIndex = async () => {
     const content = nunjucks.render(
         "blogindex.html",
         {
-            blogposts: posts.orderedBlogPosts()
+            blogposts: posts.getOrderedBlogPosts()
         }
     );
     return htmlResponse(content);
