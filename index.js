@@ -1,6 +1,5 @@
 //
 // TODO portfolio page
-// TODO github link
 //
 // TODO syntax highlighting
 // TODO static content & compilation
