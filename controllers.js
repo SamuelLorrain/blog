@@ -68,7 +68,8 @@ module.exports.static = async (req, match) => {
         accept({
             statusCode:200,
             headers: {
-                "Content-Type": format
+                "Content-Type": format,
+                // "Cache-Control": "max-age=604800, immutable"
             },
             content
         })

@@ -17,6 +17,8 @@
 //
 
 const http = require("http");
+const {pipeline} = require('stream');
+const zlib = require('zlib');
 const {routes} = require('./routes');
 const {blogPosts} = require('./init');
 const {notFoundResponse} = require("./helpers/responses");
@@ -31,8 +33,15 @@ nunjucks.configure('views', { autoescape: false });
 const server = http.createServer(async (req,res) => {
     try {
         let response = await routes.getRoute(req,res)
-        res.writeHead(response.statusCode, response.headers)
-           .end(response.content);
+        response.headers['Content-Encoding'] = 'gzip';
+        res.writeHead(response.statusCode, response.headers);
+        pipeline(response.content.toString(), zlib.createGzip(), res, (e) => {
+            if(e){
+                res.end();
+                console.log("gzip error:")
+                console.log(e);
+            }
+        });
     } catch(e) {
         console.log(e);
         let notFound = notFoundResponse;
