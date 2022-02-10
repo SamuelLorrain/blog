@@ -3,11 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+      "start": "node index.js"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "nunjucks": "^3.2.3",
     "showdown": "^2.0.0-alpha"
+  },
+  "engines": {
+    "node": "17.x"
   }
 }

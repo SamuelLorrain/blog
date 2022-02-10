@@ -17,11 +17,13 @@
 //
 
 const http = require("http");
-const host = "localhost";
-const port = 8000;
 const {routes} = require('./routes');
 const {blogPosts} = require('./init');
 const {notFoundResponse} = require("./helpers/responses");
+
+const process = require('process');
+const host = process.env['PORT'] ? '0.0.0.0' : 'localhost';
+const port = process.env['PORT'] ? process.env['PORT'] : 5000;
 
 const nunjucks = require('nunjucks');
 nunjucks.configure('views', { autoescape: false });
@@ -39,8 +41,12 @@ const server = http.createServer(async (req,res) => {
     }
 });
 server.listen(port, host, () => {
-    console.log("server is running on " + port + ":" + host)
+    console.log("server is running on " + host + ":" + port)
     blogPosts.then(() => {
         console.log("blogposts initialized");
+    })
+    .catch((e) => {
+        console.log(e);
+        return 1;
     });
 });
