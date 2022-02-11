@@ -1,5 +1,5 @@
 const zlib = require('zlib');
-const {pipeline} = require('stream');
+const {pipeline, Readable} = require('stream');
 
 getCompressionAlgorithm = (encodingString) => {
     const priorities = ['br', 'gzip', 'deflate'];
@@ -36,7 +36,9 @@ module.exports.compressResponse = (req,res,responseContent) =>  {
     let compression = getCompressionAlgorithm(req.headers['accept-encoding']);
     responseContent.headers['Content-Encoding'] = compression.name;
     res.writeHead(responseContent.statusCode, responseContent.headers);
-    pipeline(responseContent.content.toString(), compression.object, res, (e) => {
+
+    let content = responseContent.content;
+    pipeline(Readable.from(responseContent.content), compression.object, res, (e) => {
         if(e){
             res.end();
             console.log("compression error:");
