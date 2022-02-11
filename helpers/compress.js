@@ -36,8 +36,6 @@ module.exports.compressResponse = (req,res,responseContent) =>  {
     let compression = getCompressionAlgorithm(req.headers['accept-encoding']);
     responseContent.headers['Content-Encoding'] = compression.name;
     res.writeHead(responseContent.statusCode, responseContent.headers);
-
-    let content = responseContent.content;
     pipeline(Readable.from(responseContent.content), compression.object, res, (e) => {
         if(e){
             res.end();

@@ -8,6 +8,9 @@ const loadBlogPosts = async () => {
         const content = await f.readFile();
         f.close();
         const postMD = md(content.toString());
+        if (postMD.published == false) {
+            continue;
+        }
         blogPosts[
             postMD.title
                   .trim()

@@ -1,6 +1,7 @@
 // @title Rogue Random Generator
 // @date  2022-01-25
 // @tags random, oldies, nethack, C
+// @published true
 ## Introduction
 
 Rogue is a game released in 1980. It puts us in the shoes of an adventurer who must go through a dungeon to find an amulet.

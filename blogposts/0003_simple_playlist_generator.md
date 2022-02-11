@@ -1,7 +1,7 @@
 // @title Simple Playlist Generator
 // @date  2022-02-09
 // @tags  bash
-
+// @published true
 # A shell tour, creating an audio playlist generator
 
 Very present in the community of system and network administrators until the 2000s.

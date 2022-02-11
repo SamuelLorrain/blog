@@ -9,8 +9,6 @@
 // TODO precompile views  (mostly done)
 // TODO async for showdown and nunjuck
 //
-// TODO responsive
-// TODO https/ssl
 // TODO use strings in fs.writeStream & when sending response ?
 // TODO mesure performances
 // TODO minifining

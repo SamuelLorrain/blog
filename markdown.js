@@ -29,10 +29,15 @@ module.exports = function(text) {
     if (title) {
         title = title[1];
     }
+    let published = text.match(/\/\/ @published (.*)/);
+    if (published) {
+        published = published[1].trim() == 'true' ? true : false;
+    }
     return {
         title: title ?? '',
         date : date ?? '',
         tags : tags ?? [],
+        published: published ?? false,
         html: converter.makeHtml(text)
     };
 }
