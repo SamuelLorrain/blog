@@ -4,7 +4,7 @@
 // TODO syntax highlighting
 // TODO static content & compilation
 //
-// TODO compress files, caching etc.
+// TODO caching
 // TODO dark/light themes
 // TODO precompile views  (mostly done)
 // TODO async for showdown and nunjuck
@@ -17,11 +17,10 @@
 //
 
 const http = require("http");
-const {pipeline} = require('stream');
-const zlib = require('zlib');
 const {routes} = require('./routes');
 const {blogPosts} = require('./init');
 const {notFoundResponse} = require("./helpers/responses");
+const {compressResponse} = require("./helpers/compress");
 
 const process = require('process');
 const host = process.env['PORT'] ? '0.0.0.0' : 'localhost';
@@ -33,15 +32,13 @@ nunjucks.configure('views', { autoescape: false });
 const server = http.createServer(async (req,res) => {
     try {
         let response = await routes.getRoute(req,res)
-        response.headers['Content-Encoding'] = 'gzip';
-        res.writeHead(response.statusCode, response.headers);
-        pipeline(response.content.toString(), zlib.createGzip(), res, (e) => {
-            if(e){
-                res.end();
-                console.log("gzip error:")
-                console.log(e);
-            }
-        });
+        try {
+            compressResponse(req,res,response);
+        }catch(e) {
+            console.log(e);
+            res.writeHead(response.statusCode, response.headers);
+            res.end(response.content);
+        }
     } catch(e) {
         console.log(e);
         let notFound = notFoundResponse;
