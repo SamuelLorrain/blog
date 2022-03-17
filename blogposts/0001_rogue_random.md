@@ -1,5 +1,5 @@
 // @title Rogue Random Generator
-// @date  2022-01-25
+// @date  2019-07-15
 // @tags random, oldies, nethack, C
 // @published true
 ## Introduction

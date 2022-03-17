@@ -1,17 +1,21 @@
 //
+// TODO better date formatting
+// TODO title date and tags in blog
+// TODO search by tags (not now...)
+//
 // TODO portfolio page
 //
 // TODO syntax highlighting
 // TODO static content & compilation
 //
-// TODO caching
+// TODO caching (mostly done)
 // TODO dark/light themes
-// TODO precompile views  (mostly done)
+// TODO precompile views (mostly done)
 // TODO async for showdown and nunjuck
 //
 // TODO use strings in fs.writeStream & when sending response ?
 // TODO mesure performances
-// TODO minifining
+// TODO minifining css and all sended views
 //
 
 const http = require("http");

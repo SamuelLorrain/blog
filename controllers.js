@@ -1,7 +1,6 @@
 const fs = require("fs").promises;
-const md = require('./markdown');
 const nunjucks = require('nunjucks');
-const {sendNotFound, blogTemplate, htmlResponse} = require('./helpers/responses');
+const {sendNotFound, htmlResponse} = require('./helpers/responses');
 const {contentType} = require('./helpers/contentType');
 const {blogPosts} = require('./init');
 

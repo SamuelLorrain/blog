@@ -1,5 +1,5 @@
 // @title Simple Playlist Generator
-// @date  2022-02-09
+// @date  2019-01-08
 // @tags  bash
 // @published true
 # A shell tour, creating an audio playlist generator

@@ -1,7 +1,17 @@
 /*reset*/
 *{
-    margin:0;
-    padding:0;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root {
+    --background: #fafafa;
+    --links: #3facff;
+    --text: #383a42;
+    --border: #e1e1e1;
+    --code-background:#F0F0F0;
+    --code-color:#383a42;
 }
 
 /*main*/
@@ -10,22 +20,21 @@ body{
   line-height: 1.35;
   font-weight: 400;
   font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #383a42;
-  background-color: #fafafa;
+  color: var(--text);
+  background-color: var(--background);
   width:60%;
   margin:auto;
-  box-sizing:border-box;
 }
 
 a,a:visited{
     text-decoration:none;
-    color: #3facff;
+    color: var(--links);
     border-bottom:4px solid rgba(0,0,0,0);
     transition:border 0.25s ease-in;
 }
 
 a:hover{
-    border-bottom:2px solid #3facff;
+    border-bottom:2px solid var(--links);
 }
 
 article{
@@ -39,14 +48,14 @@ hr{
   margin-top: 3rem;
   margin-bottom: 3.5rem;
   border-width: 0;
-  border-top: 1px solid #E1E1E1;
+  border-top: 1px solid var(--border);
 }
 
 h1{
     font-size: 2.5rem;
     line-height: 1.1;
     margin: 0 auto 2rem auto;
-    color: #383a42;
+    color: var(--text);
     border:none;
 }
 
@@ -58,7 +67,7 @@ h2{
 
 
 header h1 a, header h1 a:hover{
-    color: #383a42 !important;
+    color: var(--text) !important;
     border:none;
 }
 
@@ -81,11 +90,11 @@ header nav{
 }
 
 header nav a{
-    color: #383a42 !important;
+    color: var(--text) !important;
 }
 
 header nav a:hover{
-    border-bottom:3px solid #333;
+    border-bottom:3px solid var(--text);
 }
 
 header hr {
@@ -101,7 +110,6 @@ footer{
 
 p{
     margin:1.75rem 0rem;
-    /* text-indent:2rem; */
     text-align:justify;
 }
 
@@ -115,8 +123,8 @@ code {
     margin: 1rem 0.2rem;
     font-size: 1.1rem;
     white-space: nowrap;
-    background: #F0F0F0;
-    border: 1px solid #E2E2E2;
+    background: var(--code-background);
+    border: 1px solid var(--border);
     border-radius: 10px;
     font-family: 'Courier New', Courier, monospace;
 }
